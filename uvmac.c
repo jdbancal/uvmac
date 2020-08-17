@@ -1075,7 +1075,7 @@ uint64_t* get64bitsOfKey(uint64_t* consumable_key, const uint64_t key_length, ui
     uint64_t *out = consumable_key + (*key_position);
     // ... and increment the position
     (*key_position) = (*key_position) + 1;
-    //   printf("At position %lu out of %lu\n", (*key_position), key_length);
+//    printf("At position %lu out of %lu\n", (*key_position), key_length);
     return out;
 }
 

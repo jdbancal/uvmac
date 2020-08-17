@@ -131,12 +131,12 @@ void vhash_update(unsigned char m[],
                   uvmax_ctx_t *ctx);
 
 uint64_t uvmac(unsigned char m[],
-              unsigned int mbytes,
-              uint64_t *tagl,
-              uvmax_ctx_t *ctx,
-              uint64_t* consumable_key,
-              const uint64_t consumable_key_length,
-              uint64_t* consumable_key_position);
+               unsigned int mbytes,
+               uint64_t *tagl,
+               uvmax_ctx_t *ctx,
+               uint64_t* consumable_key,
+               const uint64_t consumable_key_length,
+               uint64_t* consumable_key_position);
 
 uint64_t vhash(unsigned char m[],
                unsigned int mbytes,
