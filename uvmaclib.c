@@ -5,10 +5,10 @@
  * This adaptation is proposed by Jean-Daniel Bancal. It is herby placed in the
  * public domain. The authors offers no warranty. Use at your own risk.
  * Please send bug reports to the authors.
- * Last modified: 10 JUL 20, 1700 PDT
+ * Last modified: 02 FEB 21, 1500 GMT
  * ----------------------------------------------------------------------- */
 
-#include "uvmac.h"
+#include "uvmaclib.h"
 #include <string.h>
 #include <stdio.h>
 #include <assert.h>

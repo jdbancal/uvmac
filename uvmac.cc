@@ -12,7 +12,7 @@
 #include <algorithm>
 #include <cstring>
 #include <cassert>
-#include "uvmac.h"
+#include "uvmaclib.h"
 
 using namespace std;
 

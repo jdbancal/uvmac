@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
-project(authentic)
+project(uvmac)
 
-add_executable(authentic main.cc uvmac.c)
+add_executable(uvmac uvmac.cc uvmaclib.c)
+
