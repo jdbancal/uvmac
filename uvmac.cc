@@ -3,7 +3,7 @@
     usage: authentic hashKeyFile padKeyFile inputFile messageNumber
 
     Written on 11 July 2020 by Jean-Daniel Bancal
-    Last modified 17 Aug 2020
+    Last modified 02 Feb 2021
 */
 
 #include <iostream>
