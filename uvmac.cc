@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
         cout << "    " << argv[0] << " hashKeyFile padKeyFile inputFile messageNumber" << endl;
         cout << endl;
         cout << "  Parameters:" << endl;
-        cout << "    hashKeyFile: the key to be used to choose the hash function, in binary format" << endl;
+        cout << "    hashKeyFile: key to be used to choose the hash function, in binary format" << endl;
 #if (UVMAC_TAG_LEN == 64)
         cout << "      This file should contain 160 bytes." << endl;
         cout << "      The two last 64-bit registers should be smaller than 0xfffffffffffffeff." << endl;
@@ -72,12 +72,12 @@ int main(int argc, char* argv[])
         cout << "      This file should contain at least 16*(messageNumber+1) bytes" << endl;
 #endif
         cout << "    inputFile: file to be authenticated" << endl;
-        cout << "    messageNumber: an integer >= 0, identifying the part of padKeyFile to be used" << endl;
+        cout << "    messageNumber: integer >= 0, identifying the part of padKeyFile to be used" << endl;
         cout << "      Like a nonce: no message number should be used twice." << endl;
         cout << endl;
         cout << "  Output format:" << endl;
-        cout << endl;
         cout << "    The file 'inputFile'.tag containing the tag in hexadecimal format" << endl;
+        cout << endl;
         return 1;
     }
 
