@@ -7,4 +7,4 @@ To compile the executable, run the following commands:
 cmake .
 make
 ```
-Upon success, this will create the executable "authentic"
+Upon success, this will create the executable "uvmac"

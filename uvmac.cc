@@ -1,6 +1,32 @@
-/*  Program to run authentication on a file
+/*  This program computes an authenticaion tag for a file
 
-    usage: authentic hashKeyFile padKeyFile inputFile messageNumber
+    usage: uvmac hashKeyFile padKeyFile inputFile messageNumber
+
+    parameters:
+
+      hashKeyFile: File containing the secret key to be used to choose the hash
+        function within a universal family. This file is read in binary. It
+        should contain 160 (208) bytes for a tag length of 64 (128) bits (as set
+        by UVMAC_TAG_LEN). The 2 (4) last 64-bit values should be strictly
+        smaller than 2^64 - 257 (0xfffffffffffffeff). The same hashKeyFile can
+        be used to tag many different messages.
+
+      padKeyFile: File containing the key to be used to encrypt the tag with
+        one-time-pad. Each part of this key (as specified by messageNumber
+        should be used for ONLY ONE tag. The length of this file should be at
+        least the length of the tag (8 (16) bytes for a tag of length 64 (128)
+        bits) times messageNumber+1.
+        
+      inputFile: File containing the message to be authenticated. The file is
+        read in binary.
+
+      messageNumber: Number of the message, an integer >= 0. This is needed to
+        select the relevant part of the one time pad key. Never use two times
+        the same message number.
+
+    output format:
+
+      The tag is writen into a file in hexadecimal
 
     Written on 11 July 2020 by Jean-Daniel Bancal
     Last modified 02 Feb 2021
@@ -22,9 +48,9 @@ int main(int argc, char* argv[])
     if (argc != 5) {
         // Tell the user how to run the program
 #if (UVMAC_TAG_LEN == 64)
-        cout << "This program creates a 64-bit tag for a file" << endl;
+        cout << "This program creates a 64-bit authentication tag for a file" << endl;
 #else
-        cout << "This program creates a 128-bit tag for a file" << endl;
+        cout << "This program creates a 128-bit authentication tag for a file" << endl;
 #endif
         cout << endl;
         cout << "Usage: " << endl;
@@ -33,23 +59,25 @@ int main(int argc, char* argv[])
         cout << "  Parameters:" << endl;
         cout << "    hashKeyFile: the key to be used to choose the hash function, in binary format" << endl;
 #if (UVMAC_TAG_LEN == 64)
-        cout << "      This file should contain 160 bytes" << endl;
+        cout << "      This file should contain 160 bytes." << endl;
+        cout << "      The two last 64-bit registers should be smaller than 0xfffffffffffffeff." << endl;
 #else
         cout << "      This file should contain 208 bytes" << endl;
+        cout << "      The four last 64-bit registers should be smaller than 0xfffffffffffffeff." << endl;
 #endif
         cout << "    padKeyFile: the key to be used for one-time pad, in binary format" << endl;
 #if (UVMAC_TAG_LEN == 64)
-        cout << "      This file should contain at least 8*messageNumber bytes" << endl;
+        cout << "      This file should contain at least 8*(messageNumber+1) bytes" << endl;
 #else
-        cout << "      This file should contain at least 16*messageNumber bytes" << endl;
+        cout << "      This file should contain at least 16*(messageNumber+1) bytes" << endl;
 #endif
         cout << "    inputFile: file to be authenticated" << endl;
-        cout << "    messageNumber: a number >=1, identifying the part of keyFile2 to be used" << endl;
-        cout << "      Like a nonce: no number should be used twice" << endl;
+        cout << "    messageNumber: an integer >= 0, identifying the part of padKeyFile to be used" << endl;
+        cout << "      Like a nonce: no message number should be used twice." << endl;
         cout << endl;
         cout << "  Output format:" << endl;
         cout << endl;
-        cout << "    A file containing the tag in hexadecimal format" << endl;
+        cout << "    The file 'inputFile'.tag containing the tag in hexadecimal format" << endl;
         return 1;
     }
 
@@ -88,11 +116,6 @@ int main(int argc, char* argv[])
 
     // 3. Decode the message number
     long long int messageNumber = atoll(argv[4]);
-    if (messageNumber == 0)
-    {
-        cerr << "Message number should be an integer larger or equal to 1." << endl;
-        return 1;
-    }
 
 
     // 4. Loading the interesting part of the pad key
@@ -112,7 +135,7 @@ int main(int argc, char* argv[])
         cerr << "Opening pad key file " << filename2 << " failed" << endl;
         return 1;
     }
-    while (co < messageNumber)
+    while (co <= messageNumber)
     {
         ++co;
         file2.read((char*) running_key_data, running_key_length*8);
