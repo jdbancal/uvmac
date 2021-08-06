@@ -8,11 +8,14 @@
  * another cryptographic primitive with a security relying on computational
  * hardness.
  * VHASH is (2^(-61))-almost-delta-universal for all messages of length up to
- * 2^63 bits.
+ * 2^62 bits.
+ * Following Wegman and Carter, the combination of an almost-delta-universal
+ * family of hash function with fresh one-time pads results in a family of 
+ * almost-strongly-universal hash functions.
  * This adaptation is proposed by Jean-Daniel Bancal. It is herby placed in the
  * public domain. The authors offers no warranty. Use at your own risk.
  * Please send bug reports to the authors.
- * Last modified: 02 FEB 21, 1500 GMT
+ * Last modified: 06 AUG 21, 1100 GMT
  * ----------------------------------------------------------------------- */
 
 /* --------------------------------------------------------------------------
